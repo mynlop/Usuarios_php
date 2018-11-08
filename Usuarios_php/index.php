@@ -1,6 +1,33 @@
 <?php
     include_once('View/header.php');
 ?>
+
+    <?php
+    session_start();
+    if(isset($_SESSION['ingreso']) && $_SESSION['ingreso'] == 'NO'){
+    ?>
+        <div class="row">
+            <div class="callout notificacion" data-closable style="background-color:rgba(255,0,0,0.5);">
+                <p>Correo electrónico o contraseña incorrectos.</p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    <?php
+    }
+    if(isset($_SESSION['mail']) && $_SESSION['mail'] == 'SI'){
+    ?>
+        <div class="row">
+            <div class="callout notificacion" data-closable style="background-color:rgba(0,255,0,0.4);">
+                <p>Nuevo usuario agregado correctamente</p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    <?php
+    }
+    session_destroy();
+    ?>
     
     <section id='caja'>
         <form action="Controller/sesionUsuario.php" method="post">

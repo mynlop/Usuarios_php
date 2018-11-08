@@ -50,7 +50,7 @@
 
         public function comprobarEmail(){
             $conexion = LoginDB::connectDB();
-            $comprobar = $conexion-> prepare("SELECT * FROM usuarios WHERE email= :email");
+            $comprobar = $conexion-> prepare("SELECT * FROM usuarios WHERE email = :email");
             $comprobar-> bindParam(':email',$this-> email);
             $comprobar-> execute();
             if($comprobar-> rowCount() > 0){

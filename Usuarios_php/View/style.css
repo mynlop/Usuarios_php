@@ -31,3 +31,9 @@ body{
 h2{
     color: white;
 }
+
+.notificacion{
+    color: white;
+    position: absolute;
+    width: 330px;
+}

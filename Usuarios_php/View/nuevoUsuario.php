@@ -2,6 +2,33 @@
     include_once('header.php');
 ?>
 
+    <?php
+    session_start();
+    if(isset($_SESSION['mail']) && $_SESSION['mail'] == 'NO'){
+    ?>
+        <div class="row">
+            <div class="callout notificacion" data-closable style="background-color:rgba(255,0,0,0.5);">
+                <p>Este correo electrónico ya existe, por favor utilizar otro.</p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    <?php
+    }
+    if(isset($_SESSION['vacio']) && $_SESSION['vacio'] == 'SI'){
+    ?>
+        <div class="row">
+            <div class="callout notificacion" data-closable style="background-color:rgba(255,0,0,0.5);"> 
+                <p>Tienes que llenar todos los campos.</p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    <?php
+    }
+    session_destroy();
+     ?>
+
     <section id="caja">
         <div class="row">
             <div class="small-8 small-centered medium-6 medium-centered colums" >
