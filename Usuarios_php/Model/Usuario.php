@@ -38,7 +38,7 @@
             $conexion = LoginDB::connectDB();
             $comprobar = $conexion->prepare("SELECT * FROM usuarios WHERE email = :email && pass = :pass " );
             $comprobar-> bindParam(':email' , $this-> email);
-            $comprobar-> bindParam(':pass',   $this-> sha1($this-> pass));
+            $comprobar-> bindParam(':pass',   sha1($this-> pass));
             $comprobar-> execute();
             if($comprobar-> rowCount() > 0){
                 $rows = $comprobar-> fetchAll();
