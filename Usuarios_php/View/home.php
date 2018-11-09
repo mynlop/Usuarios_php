@@ -8,9 +8,22 @@
             <li class="active mostrar" style="display:none;"><a href="javascript:void(0);" onclick="cancelar();">Cancelar</a></li>
         </ul>
     </div>
+    
 <?php
     require_once '../Model/Usuario.php';
     session_start();
+
+    if(isset($_SESSION['vacio']) && $_SESSION['vacio'] == 'SI'){
+    ?>
+        <div class="row">
+            <div class="callout notificacion" data-closable style="background-color:rgba(255,0,0,0.5);">
+                <p>No intentes enviar campos vacios.</p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    <?php
+    }
 
     $perfil = new Usuario($_SESSION['id'],null,null, null, null,null);
     $datos = $perfil-> getUsuariobyID();
@@ -25,6 +38,7 @@
                     <input type="text" name="txtImg" id="url" placeholder="URL de imagen: gif, png, jpg" value="<?= $user['img'] ?>" class="caja" disabled required>
                 </div>
             </div>
+            <p id="mensaje" style="display: none;">Esto no es una imagen</p>
             <div class="row">
                 <div class="small-8 small-centered medium-6 medium-centered colums">
                     <input type="text" class= "caja" disabled name="txtNombre" value="<?= $user['nombre']  ?>" required>
@@ -40,9 +54,52 @@
                     <input type="text" class= "caja1" disabled value="<?= $user['email']  ?>" required>
                 </div>
             </div>
+            <div class="row">
+                <div class="small-10 small-centered medium-6 medium-centere colums">
+                    <button type="submit" class="mostrar expanded success button" style="display:none;">Guardar Cambios</button>
+                </div>
+            </div>
         </form>
+        <!-- botonera  -->
+        <div class="row">
+            <div class="small-10 small-centered medium-6 medium-centere colums">
+                <p><a class="mostrar expanded button" onclick="openDialog();" style="display:none;">Cambiar contraseña</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 small-centered medium-6 medium-centere colums">
+                <button onclick="eliminar('../Controller/borrarUsuario.php');" style="display:none;" class="mostrar expanded alert button">Eliminar cuenta</button>
+            </div>
+        </div>
         <?php
       }
+    ?>
+    <script>
+        // mostrar botones de edicion y poder editar informacion
+        function modificar(){
+            $('.caja').removeAttr("disabled");
+            $('.esconder').hide();
+            $('.mostrar').toggle();
+        }
+        // cancelar modificar 
+        function cancelar(){
+            location.reload();
+        }
 
+        // cargar la imagen
+        $('#url').change(function(){
+            valor = $('#url').val();
+            var ext = valor.split('.').pop();
+            if(ext == 'svg' || ext == 'png' || ext == 'jpg' || ext == 'gif'){
+                $('#img').attr('src', valor);
+                $('#mensaje').hide();
+            }else{
+                $('#img').attr('src', ' ');
+                $('#mensaje').show();
+            }
+        });
+    </script>
+    
+    <?php
       include_once('footer.php');
     ?>

@@ -37,3 +37,9 @@ h2{
     position: absolute;
     width: 330px;
 }
+
+#mensaje{
+    text-align: center;
+    font-weight: bold;
+    color: red;
+}
