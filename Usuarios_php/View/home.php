@@ -74,6 +74,9 @@
         <?php
       }
     ?>
+    <link rel="stylesheet" href="../Resources/avgrund.css">
+    <script src="../Resources/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="../Resources/sweetalert.css">
     <script>
         // mostrar botones de edicion y poder editar informacion
         function modificar(){
@@ -98,6 +101,25 @@
                 $('#mensaje').show();
             }
         });
+
+        // antes de eliminar
+        function eliminar(url){
+            swal({
+                title: "¿Esta seguro de eliminar su cuenta?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, eliminarlo",
+                cancelButtonText: "No, cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(isConfirm){
+                if(isConfirm){
+                    window.location = url;
+                }else{}
+            });
+        }
     </script>
     
     <?php
