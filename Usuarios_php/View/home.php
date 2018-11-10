@@ -24,7 +24,17 @@
         </div>
     <?php
     }
-
+    if(isset($_SESSION['vacioP']) && $_SESSION['vacioP'] == 'SI'){
+        ?>
+        <div class="row">
+            <div class="callout notificacion" data-closable style="background-color:rgba(255,0,0,0.5);">
+                <p>Tienes que escribir la nueva contraseña.</p>
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+        <?php
+    }
     $perfil = new Usuario($_SESSION['id'],null,null, null, null,null);
     $datos = $perfil-> getUsuariobyID();
     foreach($datos as $key => $user){
@@ -71,12 +81,30 @@
                 <button onclick="eliminar('../Controller/borrarUsuario.php');" style="display:none;" class="mostrar expanded alert button">Eliminar cuenta</button>
             </div>
         </div>
+        <!-- modal para la contraseña -->
+        <div id="default-popup" class="avgrund-popup" >
+            <form action="../Controller/cambiarPass.php" method="post">
+                <div class="row caja">
+                    <p>Nueva Contraseña</p>
+                </div>
+                <div class="row">
+                    <input type="password" name="txtPass" placeholder="Escribe tu nueva contraseña" required>
+                </div>
+                <div class="row">
+                    <button type="submit" class="expanded success button">Guardar contraseña</button>
+                </div>
+            </form>
+            <button type="button" onclick="closeDialog();" class="expanded button">Cancelar</button>
+        </div>
+        <div class="avgrund-cover"></div>
+        <!-- termina modal -->
         <?php
       }
     ?>
     <link rel="stylesheet" href="../Resources/avgrund.css">
     <script src="../Resources/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../Resources/sweetalert.css">
+    <script src="../Resources/avgrund.js"></script>
     <script>
         // mostrar botones de edicion y poder editar informacion
         function modificar(){
@@ -87,6 +115,14 @@
         // cancelar modificar 
         function cancelar(){
             location.reload();
+        }
+        // abrir editar contraseña
+        function openDialog() {
+            Avgrund.show( "#default-popup" );
+        }
+        // cerrar editar contraseña
+        function closeDialog() {
+            Avgrund.hide();
         }
 
         // cargar la imagen
